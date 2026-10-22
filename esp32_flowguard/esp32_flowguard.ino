@@ -20,14 +20,14 @@
 #include "addons/TokenHelper.h"
 
 
-#define WIFI_SSID       "Vinni"
-#define WIFI_PASSWORD   "password"
+#define WIFI_SSID       "wifi ssid"
+#define WIFI_PASSWORD   "wifi password"
 
-#define API_KEY         "AIzaSyASPxZJ5IcTdIt-PI029BavglNIgMSTJWI"
+#define API_KEY         "API KEY"
 #define DATABASE_URL    "https://flowguard-7f648-default-rtdb.asia-southeast1.firebasedatabase.app/"
 
-#define DEVICE_EMAIL    "vinnivn2003@gmail.com"
-#define DEVICE_PASSWORD "Vinay@2005"
+#define DEVICE_EMAIL    "email"
+#define DEVICE_PASSWORD "firebase password"
 
 #define FLOW_PIN 27
 #define OLED_SDA 21
