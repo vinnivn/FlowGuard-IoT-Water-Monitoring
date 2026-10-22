@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071a2b">
+  <title>FlowGuard | Water Intelligence</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">≈</div>
+        <div><strong>FlowGuard</strong><span>WATER INTELLIGENCE</span></div>
+      </div>
+      <div class="workspace-label">WORKSPACE</div>
+      <nav>
+        <a class="nav-item active" href="#overview"><span class="nav-icon">▦</span> Overview</a>
+        <a class="nav-item" href="#monitor"><span class="nav-icon">⌁</span> Live monitoring</a>
+        <a class="nav-item" href="#analytics"><span class="nav-icon">▥</span> Analytics</a>
+        <a class="nav-item" href="#history"><span class="nav-icon">◷</span> History</a>
+        <a class="nav-item" href="#device"><span class="nav-icon">◉</span> Device manager</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="mini-device"><span class="pulse-dot"></span><div><b>FG Node 01</b><small id="sidebarDevice">Demo device active</small></div></div>
+        <div class="sidebar-note">Modular flow monitoring<br>ESP32 · Wi-Fi · Web</div>
+      </div>
+    </aside>
+
+    <main class="main-content" id="overview">
+      <header class="topbar">
+        <div class="mobile-brand"><span class="brand-mark">≈</span><strong>FlowGuard</strong></div>
+        <div class="breadcrumb">Workspace <span>/</span> Water monitoring</div>
+        <div class="top-actions">
+          <span class="mode-pill" id="modePill"><span class="tiny-dot"></span> CONNECTING</span>
+          <button class="icon-button" id="helpBtn" title="About this dashboard">?</button>
+          <div class="avatar">FG</div>
+        </div>
+      </header>
+
+      <section class="page-heading">
+        <div>
+          <div class="eyebrow">WATER NETWORK / OVERVIEW</div>
+          <h1>Water flow overview</h1>
+          <p>Monitor your flow node, inspect live measurements, and understand water movement.</p>
+        </div>
+        <div class="heading-right">
+          <div class="date-label"><span class="calendar-icon">▦</span><span id="todayLabel">Today</span></div>
+          <button class="button button-secondary" id="exportCsvBtn">↓ Export history</button>
+        </div>
+      </section>
+
+      <section class="notice" id="demoNotice">
+        <div class="notice-icon">i</div>
+        <div><b id="noticeTitle">Waiting for device setup</b><p id="noticeText">Add your Firebase project configuration, then power on the ESP32. This dashboard will not generate fake readings.</p></div>
+        <span class="notice-tag" id="noticeTag">SETUP</span>
+      </section>
+
+      <section class="metrics-grid" id="monitor">
+        <article class="metric-card primary-metric">
+          <div class="metric-top"><span>Current flow rate</span><span class="metric-symbol">⌁</span></div>
+          <div class="metric-value"><span id="flowRate">2.35</span><small>L/min</small></div>
+          <div class="metric-foot"><span class="live-indicator"><i></i> <span id="liveLabel">WAITING FOR DEVICE</span></span><span class="metric-caption" id="flowTrend">Waiting for first reading</span></div>
+          <div class="metric-spark"><svg viewBox="0 0 240 42" preserveAspectRatio="none"><path id="sparkFill" d="" /><path id="sparkLine" d="" /></svg></div>
+        </article>
+        <article class="metric-card">
+          <div class="metric-top"><span>Total volume</span><span class="metric-symbol blue">◉</span></div>
+          <div class="metric-value"><span id="totalLitres">18.60</span><small>L</small></div>
+          <div class="metric-foot"><span class="metric-caption">Cumulative from ESP32</span><span class="metric-change">Persistent</span></div>
+        </article>
+        <article class="metric-card">
+          <div class="metric-top"><span>Device connection</span><span class="metric-symbol green">⌁</span></div>
+          <div class="connection-value"><span class="status-light" id="connectionDot"></span><strong id="connectionText">Online</strong></div>
+          <div class="metric-foot"><span class="metric-caption">FG Node 01 · ESP32</span><span class="metric-change" id="signalText">No heartbeat</span></div>
+        </article>
+        <article class="metric-card">
+          <div class="metric-top"><span>Flow state</span><span class="metric-symbol amber">◷</span></div>
+          <div class="state-value" id="flowState">Flow detected</div>
+          <div class="metric-foot"><span class="metric-caption">Based on current reading</span><span class="state-badge" id="stateBadge">ACTIVE</span></div>
+        </article>
+      </section>
+
+      <section class="content-grid" id="analytics">
+        <article class="panel chart-panel">
+          <div class="panel-heading">
+            <div><h2>Live flow trend</h2><p>Flow rate measured over the latest samples</p></div>
+            <div class="chart-legend"><span></span> Flow rate <b>L/min</b></div>
+          </div>
+          <div class="chart-summary"><strong><span id="chartCurrent">2.35</span> <small>L/min</small></strong><span class="chart-sub">Latest sample</span></div>
+          <div class="chart-wrap">
+            <div class="y-labels"><span>5.0</span><span>3.75</span><span>2.5</span><span>1.25</span><span>0</span></div>
+            <canvas id="flowChart" aria-label="Live flow-rate chart"></canvas>
+          </div>
+          <div class="chart-axis"><span id="chartStart">Just now</span><span>LIVE SAMPLES</span><span>Now</span></div>
+        </article>
+
+        <article class="panel device-panel" id="device">
+          <div class="panel-heading"><div><h2>Monitoring node</h2><p>Detachable sensor · ESP32 gateway</p></div><button class="more-button" id="deviceMenu" title="Device details">···</button></div>
+          <div class="device-illustration">
+            <div class="sensor-graphic">
+              <div class="sensor-body"><span class="sensor-port"></span><span class="sensor-wheel">✳</span><span class="sensor-label">FLOW</span></div>
+              <div class="sensor-wire"></div>
+              <div class="esp-board"><span class="board-chip">ESP32</span><i></i><i></i><i></i><i></i><i></i></div>
+            </div>
+            <div class="illustration-caption">Flow sensor <span>→</span> ESP32 <span>→</span> Wi-Fi</div>
+          </div>
+          <div class="device-details">
+            <div><span>Node ID</span><b>FG-NODE-001</b></div>
+            <div><span>Data source</span><b id="dataSource">Simulated preview</b></div>
+            <div><span>Last update</span><b id="lastUpdate">Just now</b></div>
+            <div><span>Transport</span><b>Wi-Fi / HTTPS-ready</b></div>
+          </div>
+          <button class="button button-outline full-width" id="connectInfoBtn">View connection setup <span>↗</span></button>
+        </article>
+      </section>
+
+      <section class="bottom-grid">
+        <article class="panel activity-panel">
+          <div class="panel-heading"><div><h2>Recent readings</h2><p>Latest records received from the ESP32</p></div><span class="table-count" id="sampleCount">0 samples</span></div>
+          <div class="table-scroll">
+            <table><thead><tr><th>TIME</th><th>FLOW RATE</th><th>VOLUME</th><th>STATE</th></tr></thead><tbody id="readingsBody"></tbody></table>
+          </div>
+        </article>
+        <article class="panel quick-panel">
+          <div class="panel-heading"><div><h2>System status</h2><p>Prototype health summary</p></div></div>
+          <div class="status-row"><span class="status-icon good">✓</span><div><b>Sensor interface</b><small>Configured in ESP32 firmware</small></div><span class="status-text">READY</span></div>
+          <div class="status-row"><span class="status-icon good">✓</span><div><b>Local display</b><small>Local display on monitoring unit</small></div><span class="status-text">READY</span></div>
+          <div class="status-row"><span class="status-icon pending" id="linkIcon">↗</span><div><b>ESP32 data link</b><small id="linkStatus">Waiting for first heartbeat</small></div><span class="status-text pending-text" id="linkState">WAITING</span></div>
+          <div class="system-foot" id="systemFoot"><span class="pulse-dot"></span> Waiting for cloud connection</div>
+        </article>
+      </section>
+      <section class="panel history-panel" id="history">
+        <div class="panel-heading"><div><h2>Reading history</h2><p>Previously saved measurements from the cloud database</p></div><span class="table-count" id="historyCount">0 records</span></div>
+        <div class="history-controls">
+          <label>From <input type="date" id="historyFrom"></label>
+          <label>To <input type="date" id="historyTo"></label>
+          <button class="button button-secondary" id="filterHistoryBtn">Apply filter</button>
+          <button class="button button-outline" id="clearHistoryFilterBtn">Clear</button>
+        </div>
+        <div class="table-scroll history-table-scroll">
+          <table><thead><tr><th>DATE &amp; TIME</th><th>FLOW RATE</th><th>TOTAL VOLUME</th><th>DEVICE</th></tr></thead><tbody id="historyBody"><tr><td colspan="4" class="empty-history">Connect Firebase to load saved readings.</td></tr></tbody></table>
+        </div>
+        <p class="history-footnote">History is stored in Firebase, so it remains available after refreshing or reopening the website. This view loads the latest 1,000 records for the selected node.</p>
+      </section>
+      <footer><span>FLOWGUARD <b>·</b> WATER INTELLIGENCE</span><span>Prototype dashboard · <span id="footerTime">—</span></span></footer>
+    </main>
+  </div>
+
+  <dialog id="infoDialog">
+    <div class="dialog-head"><div><span class="dialog-kicker">INTEGRATION GUIDE</span><h2 id="dialogTitle">Connect your ESP32</h2></div><button class="icon-button" id="closeDialog" aria-label="Close">×</button></div>
+    <div class="dialog-body" id="dialogBody">
+      <p>This dashboard displays real readings only after Firebase is configured and the ESP32 begins sending heartbeats. No simulated water readings are generated.</p>
+      <div class="setup-step"><span>01</span><div><b>Read the flow meter</b><p>ESP32 counts sensor pulses and calculates L/min and total litres.</p></div></div>
+      <div class="setup-step"><span>02</span><div><b>Send readings over Wi-Fi</b><p>Use Firebase Realtime Database or a small API endpoint. Keep credentials private and secure database rules.</p></div></div>
+      <div class="setup-step"><span>03</span><div><b>Subscribe from the website</b><p>The frontend listens for updated readings and refreshes the cards and chart.</p></div></div>
+      <p class="dialog-note">The website does not connect directly to the flow meter. The ESP32 is the gateway. Device status changes to offline when its heartbeat becomes stale.</p>
+    </div>
+  </dialog>
+  <script type="module" src="script.js"></script>
+</body>
+</html>

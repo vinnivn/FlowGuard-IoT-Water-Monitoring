@@ -1,0 +1,17 @@
+{
+  "rules": {
+    "devices": {
+      "$deviceId": {
+        ".read": "auth != null",
+        "status": {
+          ".write": "auth != null && auth.token.email == 'esp32-node@yourdomain.com'"
+        },
+        "history": {
+          "$readingId": {
+            ".write": "auth != null && auth.token.email == 'esp32-node@yourdomain.com'"
+          }
+        }
+      }
+    }
+  }
+}
