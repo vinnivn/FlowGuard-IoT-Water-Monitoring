@@ -1,6 +1,6 @@
 
 export const firebaseConfig = {
-  apiKey: "AIzaSyASPxZJ5IcTdIt-PI029BavglNIgMSTJWI",
+  apiKey: "API KEY",
   authDomain: "flowguard-7f648.firebaseapp.com",
   databaseURL: "https://flowguard-7f648-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "flowguard-7f648",
